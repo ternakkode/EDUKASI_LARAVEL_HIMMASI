@@ -18,7 +18,7 @@ class ArticleDetailResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'categories' => $this->category,
-            'headline_image' => asset($this->headline_photo),
+            'headline_image' => asset(articleUrl($this->headline_photo)),
             'content' => $this->content,
             'created_at' => date("Y-m-d H:i:s", strtotime($this->created_at))
         ];

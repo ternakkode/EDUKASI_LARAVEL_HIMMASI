@@ -16,7 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'v1', 'namespace' => 'API\V1'], function () {
     Route::group(['prefix' => 'article'], function () {
+        Route::post('/', 'ArticleController@create');
         Route::get('/', 'ArticleController@index');
-        Route::get('/{id}', 'ArticleController@detail');
+        Route::get('/{id}', 'ArticleController@detail')->where('id', '[0-9]+');
     });
 });

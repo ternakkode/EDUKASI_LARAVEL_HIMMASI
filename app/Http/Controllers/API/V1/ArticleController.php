@@ -3,20 +3,43 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
+
+use App\Http\Requests\API\V1\Article\CreateRequest;
 use App\Http\Requests\API\V1\Article\FetchRequest;
 use App\Http\Resources\API\V1\Article\ArticleDetailResource;
 use App\Http\Resources\API\V1\Article\ArticleResource;
 use App\Repositories\ArticleRepository;
+use App\Services\Article\ArticleImageService;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
+    private $articleImageService;
     private $articleRepository;
 
     public function __construct(
+        ArticleImageService $articleImageService,
         ArticleRepository $articleRepository
     ) {
+        $this->articleImageService = $articleImageService;
         $this->articleRepository = $articleRepository;
+    }
+
+    public function create(CreateRequest $request)
+    {
+        $articles = $request->only(['title', 'content']);
+        $categories = $request->input('category');
+        $headlinePhoto = $request->file('headline_photo');
+        $articles['headline_photo'] = $this->articleImageService->handleUpload(
+            $headlinePhoto,
+            $articles['title']
+        );
+
+        $this->articleRepository->store($articles);
+        $this->articleRepository->attachCategory($categories);
+        $articleObj = $this->articleRepository->getModel();
+
+        return api_success(new ArticleDetailResource($articleObj));
     }
 
     public function index(FetchRequest $request)

@@ -28,13 +28,13 @@ class ArticleRepository implements ArticleRepositoryInterface
     {
         $this->model->title = $data['title'] ?? $this->model->title;
         $this->model->headline_photo = $data['headline_photo'] ?? $this->model->headline_photo;
-        $this->model->isi = $data['content'] ?? $this->model->content;
+        $this->model->content = $data['content'] ?? $this->model->content;
         $this->model->save();
     }
 
     public function attachCategory($categories)
     {
-        $this->model->category->attach($categories);
+        $this->model->category()->attach($categories);
 
         return $this;
     }
