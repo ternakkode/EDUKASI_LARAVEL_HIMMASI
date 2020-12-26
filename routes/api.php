@@ -17,5 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'v1', 'namespace' => 'API\V1'], function () {
     Route::group(['prefix' => 'article'], function () {
         Route::get('/', 'ArticleController@index');
+        Route::get('/{id}', 'ArticleController@detail');
     });
 });

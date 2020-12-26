@@ -10,7 +10,7 @@ interface ArticleRepositoryInterface
     public function getModel();
     public function store($data);
     public function attachCategory($categories);
-    public function find($id);
+    public function findById($id);
     public function search($coloumn, $keyword);
     public function sort($coloumn, $order);
     public function hasCategory($categoryNames);

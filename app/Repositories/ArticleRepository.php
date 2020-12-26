@@ -39,9 +39,9 @@ class ArticleRepository implements ArticleRepositoryInterface
         return $this;
     }
 
-    public function find($id)
+    public function findById($id)
     {
-        $this->model = $this->model->find($id);
+        $this->model = $this->model->where('id', $id);
 
         return $this;
     }

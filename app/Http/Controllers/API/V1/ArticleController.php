@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\Article\FetchRequest;
+use App\Http\Resources\API\V1\Article\ArticleDetailResource;
 use App\Http\Resources\API\V1\Article\ArticleResource;
 use App\Repositories\ArticleRepository;
 use Illuminate\Http\Request;
@@ -38,6 +39,17 @@ class ArticleController extends Controller
         $articles = $articles->fetchAll();
         if (!$articles->isEmpty()) {
             return api_success(ArticleResource::collection($articles));
+        } else {
+            return api_error('data not found');
+        }
+    }
+
+    public function detail($id)
+    {
+        $articles = $this->articleRepository->findById($id)->onlyOne();
+        
+        if ($articles) {
+            return api_success(new ArticleDetailResource($articles));
         } else {
             return api_error('data not found');
         }
