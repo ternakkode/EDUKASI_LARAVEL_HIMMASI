@@ -21,6 +21,13 @@ class Category extends Model
     */
     protected $guarded = [];
 
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
+
     public function artikel()
     {
         return $this->belongsToMany(Article::class, 'article_category', 'category_id', 'article_id');
