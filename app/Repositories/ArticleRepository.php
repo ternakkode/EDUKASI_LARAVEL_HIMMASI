@@ -34,37 +34,39 @@ class ArticleRepository implements ArticleRepositoryInterface
 
     public function attachCategory($categories)
     {
-        $this->model->categories->attach($categories);
+        $this->model->category->attach($categories);
 
         return $this;
     }
 
     public function find($id)
     {
-        $this->model->find($id);
+        $this->model = $this->model->find($id);
 
         return $this;
     }
 
     public function search($coloumn, $keyword)
     {
-        $this->model->where($coloumn, 'like', '%'.$keyword.'%');
+        $this->model = $this->model->where($coloumn, 'like', '%'.$keyword.'%');
 
         return $this;
     }
 
-    public function sort($coloumn = 'created_at', $order = 'DESC')
+    public function sort($coloumn = 'created_at', $order = 'desc')
     {
-        $this->model->orderBy($coloumn, $method);
+        $this->model = $this->model->orderBy($coloumn, $order);
 
         return $this;
     }
 
-    public function hasCategory($categoryNames)
+    public function hasCategory($name)
     {
-        $this->model->whereHas('categories', function (Builder $query) {
-            $query->where('name', $categoryNames);
+        $this->model = $this->model->whereHas('category', function ($query) use ($name) {
+            $query->where('name', $name);
         });
+
+        return $this;
     }
 
     public function fetchAll()

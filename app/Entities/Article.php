@@ -21,6 +21,13 @@ class Article extends Model
     */
     protected $guarded = [];
 
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['category'];
+
     public function category()
     {
         return $this->belongsToMany(Category::class, 'article_category', 'article_id', 'category_id');
