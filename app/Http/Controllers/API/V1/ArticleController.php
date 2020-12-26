@@ -97,4 +97,14 @@ class ArticleController extends Controller
 
         return api_success(new ArticleDetailResource($articleObj));
     }
+
+    public function delete()
+    {
+        $this->articleRepository->findByIdOrFail($id);
+        $this->articleRepository->detachCategory();
+        $this->articleRepository->delete();
+        $articleObj = $this->articleRepository->getModel();
+
+        return api_success(new ArticleDetailResource($articleObj));
+    }
 }

@@ -20,5 +20,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API\V1'], function () {
         Route::get('/', 'ArticleController@index');
         Route::get('/{id}', 'ArticleController@detail')->where('id', '[0-9]+');
         Route::put('/{id}', 'ArticleController@update')->where('id', '[0-9]+');
+        Route::delete('/{id}', 'ArticleController@delete')->where('id', '[0-9]+');
     });
 });
