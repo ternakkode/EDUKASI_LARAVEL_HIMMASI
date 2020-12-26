@@ -79,7 +79,7 @@ class ArticleController extends Controller
         }
     }
 
-    public function update($id, UpdateRequest $articles)
+    public function update($id, UpdateRequest $request)
     {
         $this->articleRepository->findByIdOrFail($id);
         $articles = $request->only(['title', 'content']);
@@ -98,7 +98,7 @@ class ArticleController extends Controller
         return api_success(new ArticleDetailResource($articleObj));
     }
 
-    public function delete()
+    public function delete($id)
     {
         $this->articleRepository->findByIdOrFail($id);
         $this->articleRepository->detachCategory();

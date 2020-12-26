@@ -53,7 +53,7 @@ class ArticleRepository implements ArticleRepositoryInterface
         return $this;
     }
 
-    public function findOrFail($id) {
+    public function findByIdOrFail($id) {
         $this->model = $this->model->findOrFail($id);
 
         return $this;
