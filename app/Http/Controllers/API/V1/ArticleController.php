@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\Http\Requests\API\V1\Article\CreateRequest;
 use App\Http\Requests\API\V1\Article\FetchRequest;
+use App\Http\Requests\API\V1\Article\UpdateRequest;
 use App\Http\Resources\API\V1\Article\ArticleDetailResource;
 use App\Http\Resources\API\V1\Article\ArticleResource;
 use App\Repositories\ArticleRepository;
@@ -76,5 +77,24 @@ class ArticleController extends Controller
         } else {
             return api_error('data not found');
         }
+    }
+
+    public function update($id, UpdateRequest $articles)
+    {
+        $this->articleRepository->findByIdOrFail($id);
+        $articles = $request->only(['title', 'content']);
+        $categories = $request->input('category');
+        $headlinePhoto = $request->file('headline_photo');
+        $articles['headline_photo'] = $headlinePhoto ? $this->articleImageService->handleUpload(
+            $headlinePhoto,
+            $articles['title']
+        ) : null;
+
+        $this->articleRepository->store($articles);
+        $this->articleRepository->detachCategory();
+        $this->articleRepository->attachCategory($categories);
+        $articleObj = $this->articleRepository->getModel();
+
+        return api_success(new ArticleDetailResource($articleObj));
     }
 }

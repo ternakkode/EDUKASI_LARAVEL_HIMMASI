@@ -39,9 +39,22 @@ class ArticleRepository implements ArticleRepositoryInterface
         return $this;
     }
 
+    public function detachCategory()
+    {
+        $this->model->category()->detach();
+
+        return $this;
+    }
+
     public function findById($id)
     {
         $this->model = $this->model->where('id', $id);
+
+        return $this;
+    }
+
+    public function findOrFail($id) {
+        $this->model = $this->model->findOrFail($id);
 
         return $this;
     }
