@@ -19,3 +19,18 @@ Repository api sederhana api blog menggunakan laravel 7 untuk keperluan pengajar
 3. Jalankan command `php artisan key:generate` untuk generate app key
 4. Jalankan command `php artisan migrate` untuk generate database yang dibutuhkan
 5. Jalankan command `php artisan db:seed` untuk seeding data dummy
+
+## Challenge
+Forking Repository ini lalu buatlah Endpoint untuk CRUD Kategori dengan syarat sebagai berikut : 
+
+- [x] Tetap menggunakan Repository Pattern.
+- [x] Menerapkan SOLID Principle semaksimal mungkin.
+- [x] Kodenya clean.
+
+setelah selesai silahkan pull request ke repository ini dengan format deskripsi : 
+1. Nama : 
+2. Nomor Hape :
+
+Peserta terpilih (kodenya paling baik & cepat) dapat hadiah pulsa bnrn ga boonk.
+
+**Deadline : Senin, 28 November 2020**
